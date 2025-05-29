@@ -1,11 +1,15 @@
 import { useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
-import sessionRestoreService from './services/sessionRestoreService';
-import userService from './services/userService';
-import { registerUserWithTelegram } from './services/authService';
+import sessionRestoreService from '@/services/sessionRestoreService';
+import userService from '@/services/userService';
+import { registerUserWithTelegram } from '@/services/authService';
 
-export const App = () => {
-  const [isLoading, setIsLoading] = useState(false);
+interface AppProps {
+  // Додайте необхідні пропси тут
+}
+
+export const App: React.FC<AppProps> = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [telegramAuthError, setTelegramAuthError] = useState<string | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
   const queryClient = useQueryClient();
@@ -25,12 +29,15 @@ export const App = () => {
         // Получаем реферальный код только из URL параметров
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.has('ref_code') || urlParams.has('refCode')) {
-          referrerCode = urlParams.get('ref_code') || urlParams.get('refCode');
-          console.log('[App] Обнаружен реферальный код в URL:', referrerCode);
-          
-          // Сохраняем реферальный код в sessionStorage
-          sessionStorage.setItem('referrer_code', referrerCode);
-          sessionStorage.setItem('referrer_code_timestamp', Date.now().toString());
+          const code = urlParams.get('ref_code') || urlParams.get('refCode');
+          if (code) {
+            referrerCode = code;
+            console.log('[App] Обнаружен реферальный код в URL:', referrerCode);
+            
+            // Сохраняем реферальный код в sessionStorage
+            sessionStorage.setItem('referrer_code', referrerCode);
+            sessionStorage.setItem('referrer_code_timestamp', Date.now().toString());
+          }
         } else {
           console.log('[App] Реферальный код в URL не обнаружен');
           

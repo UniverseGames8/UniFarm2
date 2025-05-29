@@ -1,10 +1,4 @@
-interface RegistrationResult {
-  success: boolean;
-  data?: {
-    user_id: string;
-  };
-  error?: string;
-}
+import { RegistrationResult } from '@/types/auth';
 
 export const registerUserWithTelegram = async (
   guestId: string,
@@ -23,7 +17,7 @@ export const registerUserWithTelegram = async (
     });
 
     if (!response.ok) {
-      throw new Error('Registration failed');
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
 
     const data = await response.json();
@@ -34,10 +28,10 @@ export const registerUserWithTelegram = async (
       },
     };
   } catch (error) {
-    console.error('[authService] Registration error:', error);
+    console.error('Error registering user:', error);
     return {
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: error instanceof Error ? error.message : 'Unknown error occurred',
     };
   }
 }; 
