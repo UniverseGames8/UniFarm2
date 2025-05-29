@@ -7,15 +7,9 @@ import { correctApiRequest } from "@/lib/correctApiRequest";
  * Интерфейс пользователя, возвращаемый API
  */
 export interface User {
-  id: number;
-  telegram_id: number | null;
-  username: string;
-  balance_uni: string;
-  balance_ton: string;
-  ref_code: string; // Реферальный код пользователя всегда должен быть определен
-  guest_id: string; // Идентификатор гостя
-  created_at?: string;
-  parent_ref_code?: string | null;
+  id: string;
+  guest_id: string;
+  // Додайте інші поля користувача тут
 }
 
 /**
@@ -246,13 +240,9 @@ class UserService {
       // Проверяем и фиксируем поля с типами данных, если это необходимо
       const userData = {
         ...data.data,
-        id: Number(data.data.id),
-        telegram_id: data.data.telegram_id !== undefined ? 
-          (data.data.telegram_id === null ? null : Number(data.data.telegram_id)) : null,
-        balance_uni: String(data.data.balance_uni || "0"),
-        balance_ton: String(data.data.balance_ton || "0"),
-        ref_code: String(data.data.ref_code || ""),
-        guest_id: String(data.data.guest_id || "")
+        id: String(data.data.id),
+        guest_id: String(data.data.guest_id || ""),
+        // Добавьте другие необходимые поля
       };
       
       // Валидируем и кэшируем полученные данные
@@ -294,27 +284,16 @@ class UserService {
   private isValidUserData(data: any): data is User {
     const isValid = (
       data &&
-      typeof data.id === 'number' &&
-      data.id > 0 &&
-      (typeof data.telegram_id === 'number' || typeof data.telegram_id === 'string' || data.telegram_id === null) &&
-      typeof data.username === 'string' &&
-      typeof data.balance_uni === 'string' &&
-      typeof data.balance_ton === 'string' &&
-      typeof data.ref_code === 'string' // Добавлена проверка на ref_code
+      typeof data.id === 'string' &&
+      typeof data.guest_id === 'string' &&
+      // Добавьте другие необходимые проверки
     );
     
     // Подробный лог для отладки валидации данных
     if (!isValid && data) {
       console.warn('[UserService] Invalid user data structure:', {
-        hasId: typeof data.id === 'number',
-        idIsPositive: data.id > 0,
-        hasTelegramId: typeof data.telegram_id === 'number' || typeof data.telegram_id === 'string' || data.telegram_id === null,
-        telegramIdValue: data.telegram_id,
-        hasUsername: typeof data.username === 'string',
-        hasBalanceUni: typeof data.balance_uni === 'string',
-        hasBalanceTon: typeof data.balance_ton === 'string',
-        hasRefCode: typeof data.ref_code === 'string',
-        refCodeValue: data.ref_code || 'missing',
+        hasId: typeof data.id === 'string',
+        hasGuestId: typeof data.guest_id === 'string',
         rawData: data
       });
     }
@@ -519,7 +498,7 @@ class UserService {
       
       // Шаг 3: Проверка кэшированных данных пользователя
       const cachedData = this.getCachedUserData();
-      if (cachedData && cachedData.id > 0 && cachedData.id !== 1) {
+      if (cachedData && cachedData.id && cachedData.id !== "0") {
         console.log('[UserService] Found real user ID from cached user data:', cachedData.id);
         return true;
       } else if (cachedData) {
@@ -532,7 +511,7 @@ class UserService {
       console.log('[UserService] Attempting to get real user ID from API');
       try {
         const userData = await this.fetchUserFromApi();
-        const isValid = userData && userData.id > 0 && userData.id !== 1;
+        const isValid = userData && userData.id && userData.id !== "0";
         
         if (isValid) {
           console.log('[UserService] Successfully retrieved valid user ID from API:', userData.id);
@@ -552,4 +531,6 @@ class UserService {
   }
 }
 
-export default new UserService();
+const userService = new UserService();
+
+export default userService;

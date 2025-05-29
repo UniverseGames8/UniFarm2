@@ -1,5 +1,16 @@
+import { useState } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
+import sessionRestoreService from './services/sessionRestoreService';
+import userService from './services/userService';
+import { registerUserWithTelegram } from './services/authService';
+
+export const App = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [telegramAuthError, setTelegramAuthError] = useState<string | null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
+  const queryClient = useQueryClient();
+
   // Метод для аутентификации только через guest_id и ref_code
-  // (Этап 10.3 - полностью убрана зависимость от Telegram WebApp initData)
   const authenticateWithTelegram = async () => {
     try {
       setIsLoading(true);
@@ -40,8 +51,7 @@
       
       // Этап 5.2: Проверка существующего пользователя и создание нового при необходимости
       try {
-        const existingUser = await userService.getUserByGuestId(guestId)
-          .catch(() => null);
+        const existingUser = await userService.getUserByGuestId(guestId);
         
         if (existingUser) {
           console.log('[App] Найден существующий пользователь по guest_id:', existingUser);
@@ -92,3 +102,18 @@
       setIsLoading(false);
     }
   };
+
+  return (
+    <div>
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : telegramAuthError ? (
+        <div>Error: {telegramAuthError}</div>
+      ) : userId ? (
+        <div>Welcome! User ID: {userId}</div>
+      ) : (
+        <button onClick={authenticateWithTelegram}>Authenticate</button>
+      )}
+    </div>
+  );
+};

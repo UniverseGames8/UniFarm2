@@ -207,38 +207,13 @@ const updateSessionWithTelegramData = (_telegramId: any, _userId: any): void => 
  * @returns {string} Уникальный идентификатор гостя
  */
 const getOrCreateGuestId = (): string => {
-  try {
-    // Пытаемся получить существующий guest_id
-    const existingGuestId = getGuestId();
-    
-    if (existingGuestId) {
-      console.log('[sessionRestoreService] Используем существующий guest_id:', existingGuestId);
-      return existingGuestId;
-    }
-    
-    // Если guest_id не найден, создаем новый на основе UUID v4
-    const newGuestId = uuidv4();
-    console.log('[sessionRestoreService] Создан новый guest_id:', newGuestId);
-    
-    // Сохраняем новый guest_id
-    saveGuestId(newGuestId);
-    
-    return newGuestId;
-  } catch (error) {
-    console.error('[sessionRestoreService] Ошибка при создании guest_id:', error);
-    
-    // В случае ошибки создаем fallback ID на основе timestamp
-    const fallbackId = `fb-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
-    console.warn('[sessionRestoreService] Используем fallback guest_id:', fallbackId);
-    
-    try {
-      saveGuestId(fallbackId);
-    } catch (saveError) {
-      console.error('[sessionRestoreService] Не удалось сохранить fallback guest_id:', saveError);
-    }
-    
-    return fallbackId;
+  const savedGuestId = localStorage.getItem('unifarm_guest_id');
+  if (savedGuestId) {
+    return savedGuestId;
   }
+  const newGuestId = crypto.randomUUID();
+  localStorage.setItem('unifarm_guest_id', newGuestId);
+  return newGuestId;
 };
 
 /**
@@ -401,7 +376,7 @@ type SessionRestoreService = {
   autoReauthenticate: () => Promise<boolean>;
 };
 
-const sessionRestoreService: SessionRestoreService = {
+const sessionRestoreService = {
   shouldAttemptRestore,
   getGuestId,
   saveGuestId,
