@@ -1,0 +1,11 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Форматування коду
+npm run format
+
+# Перевірка типів
+npm run check
+
+# Лінтування
+npm run lint 
