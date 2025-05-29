@@ -1,0 +1,14 @@
+run = "node start.cjs"
+compile = "npm run build"
+entrypoint = "server/index.ts"
+
+[languages.typescript]
+pattern = "**/{*.ts,*.tsx}"
+syntax = "typescript"
+
+[languages.typescript.languageServer]
+start = ["typescript-language-server", "--stdio"]
+
+[auth]
+pageEnabled = false
+loginEnabled = false

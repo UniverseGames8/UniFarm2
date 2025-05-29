@@ -1,0 +1,20 @@
+[workflow]
+onBoot = true
+name = "UniFarm"
+entrypoint = "node start.cjs"
+runOnOpen = true
+clearEnv = false
+
+[env]
+SKIP_TELEGRAM_CHECK = "true"
+ALLOW_BROWSER_ACCESS = "true"
+NODE_ENV = "production"
+PORT = "3000"
+HOST = "0.0.0.0"
+SKIP_PROCESS_EXIT = "true"
+TELEGRAM_DEBUG = "true"
+USE_MEMORY_SESSION = "true"
+ALLOW_MEMORY_FALLBACK = "true"
+DATABASE_PROVIDER = "auto"
+DISABLE_PARTITION_CHECK = "true"
+IGNORE_DB_CONNECTION_ERRORS = "true"

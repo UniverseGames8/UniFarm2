@@ -1,0 +1,27 @@
+run = "NODE_ENV=production DATABASE_PROVIDER=replit node production-server-port.mjs"
+modules = ["nodejs-20:v8-20230920-bd784b9"]
+
+[nix]
+channel = "stable-23_05"
+
+[env]
+DATABASE_PROVIDER = "replit"
+NODE_ENV = "production"
+PORT = "3000"
+
+[deployment]
+run = ["sh", "-c", "NODE_ENV=production DATABASE_PROVIDER=replit node production-server-port.mjs"]
+deploymentTarget = "cloudrun"
+ignorePorts = false
+
+[[ports]]
+localPort = 3000
+externalPort = 80
+
+[hidden]
+buildCommand = "npm run build"
+
+[hidden.StartServer]
+command = "NODE_ENV=production DATABASE_PROVIDER=replit node production-server-port.mjs"
+transport = "port"
+port = 3000

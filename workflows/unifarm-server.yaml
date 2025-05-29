@@ -1,0 +1,6 @@
+name: UniFarm Server
+on: manual
+steps:
+  - name: Start UniFarm
+    run: node run.js
+    background: true

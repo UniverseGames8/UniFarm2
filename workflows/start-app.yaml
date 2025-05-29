@@ -1,0 +1,6 @@
+name: Start application
+on: manual
+steps:
+  - name: Start UniFarm Production Server
+    run: NODE_ENV=production tsx server/index.ts
+    background: true

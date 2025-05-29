@@ -1,0 +1,10 @@
+{
+  "name": "unifarm-deploy",
+  "version": "1.0.0",
+  "description": "UniFarm deployment configuration",
+  "type": "commonjs",
+  "main": "start-unified.cjs",
+  "scripts": {
+    "start": "node start-unified.cjs"
+  }
+}

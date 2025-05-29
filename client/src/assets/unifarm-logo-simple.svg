@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="120" viewBox="0 0 400 120" xmlns="http://www.w3.org/2000/svg">
+  <!-- Монета с буквой U (простая версия) -->
+  <circle cx="60" cy="60" r="50" fill="#A259FF" />
+  
+  <!-- Буква U на монете -->
+  <path d="M40 35 v35 a20,20 0 0,0 40,0 v-35" 
+        stroke="white" 
+        stroke-width="10" 
+        fill="none" 
+        stroke-linecap="round" />
+  
+  <!-- Текст "UniFarm" -->
+  <text x="130" y="70" 
+        font-family="Arial, sans-serif" 
+        font-size="40" 
+        font-weight="bold" 
+        fill="#A259FF">
+    UniFarm
+  </text>
+</svg>

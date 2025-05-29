@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <!-- Монета с буквой U для иконки -->
+  <defs>
+    <!-- Градиент для монеты - от основного до вторичного фиолетового -->
+    <linearGradient id="coinGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#A259FF" />
+      <stop offset="100%" stop-color="#B368F7" />
+    </linearGradient>
+    
+    <!-- Блик на монете -->
+    <linearGradient id="coinShine" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Основной круг монеты -->
+  <circle cx="60" cy="60" r="55" fill="url(#coinGradient)" />
+  
+  <!-- Блик на монете -->
+  <ellipse cx="40" cy="35" rx="35" ry="22" fill="url(#coinShine)" opacity="0.5" />
+  
+  <!-- Буква U на монете -->
+  <path d="M35 35 v30 a25,25 0 0,0 50,0 v-30" 
+        stroke="white" 
+        stroke-width="14" 
+        fill="none" 
+        stroke-linecap="round" />
+  
+  <!-- Тонкий обод по краю -->
+  <circle cx="60" cy="60" r="55" 
+          stroke="#ffffff" 
+          stroke-width="2" 
+          fill="none"
+          opacity="0.3" />
+</svg>

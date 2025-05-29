@@ -1,0 +1,52 @@
+run = "NODE_ENV=production PORT=3000 node start-unified.js"
+modules = ["postgresql-16", "nodejs-20"]
+
+[nix]
+channel = "stable-23_05"
+packages = ["postgresql", "jq", "wget", "lsof"]
+
+[env]
+DATABASE_PROVIDER = "replit"
+NODE_ENV = "production"
+PORT = "3000"
+# The current configuration seems to be correctly set up for a production environment.
+# The NODE_ENV is set to 'production', and PORT is set to '3000'.
+# The deployment configuration specifies the necessary environment variables and commands required for production.
+[deployment]
+run = ["sh", "-c", "NODE_ENV=production PORT=3000 DATABASE_PROVIDER=neon FORCE_NEON_DB=true DISABLE_REPLIT_DB=true OVERRIDE_DB_PROVIDER=neon node start-unified.js"]
+deploymentTarget = "cloudrun"
+ignorePorts = false
+build = ["sh", "-c", "npm run build"]
+
+[[ports]]
+localPort = 3000
+externalPort = 80
+
+[[ports]]
+localPort = 3001
+externalPort = 3001
+
+[workflows]
+runButton = "Start Production Server"
+
+[[workflows.workflow]]
+name = "run.js"
+mode = "sequential"
+author = 42563681
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "run.js → start-app.cjs → start.cjs → server/index.ts"
+
+[[workflows.workflow]]
+name = "Start Production Server"
+author = 42563681
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm run build"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "NODE_ENV=production PORT=3000 DATABASE_PROVIDER=neon FORCE_NEON_DB=true DISABLE_REPLIT_DB=true node start-unified.js"

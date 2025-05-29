@@ -1,0 +1,9 @@
+{
+  "version": "1.0",
+  "name": "UniFarming",
+  "short_name": "UniFarm",
+  "description": "Фарминг, награды и рефералы в Telegram",
+  "start_parameter": "ref",
+  "bot_username": "UniFarming_Bot",
+  "url": "https://uni-farm-connect-2-misterxuniverse.replit.app/UniFarm"
+}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="telegram-web-app-ready" content="true" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="color-scheme" content="light dark" />
+    <!-- Официальный скрипт Telegram WebApp API -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- Скрипт для исправления URL и перенаправления на Telegram Mini App -->
+    <script>
+      // Удаление слеша
+      if (window.location.pathname.endsWith('/') && window.location.pathname !== '/') {
+        window.history.replaceState({}, document.title,
+          window.location.pathname.slice(0, -1) + window.location.search + window.location.hash
+        );
+        console.log('[URL Fix] Исправлен URL со слешем в конце');
+      }
+
+      // Проверка доступности Telegram
+      (function() {
+        const isTelegramAvailable = typeof window.Telegram !== 'undefined';
+        
+        console.log('[Telegram Check]', {
+          isTelegramAvailable: isTelegramAvailable,
+          host: location.host,
+          isDevelopment: location.host.includes('replit.dev') || process.env.NODE_ENV === 'development'
+        });
+        
+        // Удалена логика автоматического перенаправления
+        // Предупреждение будет показано через компонент TelegramInitDataWarning
+      })();
+
+      // Проверка Telegram API
+      window.addEventListener('DOMContentLoaded', function () {
+        const isTelegramAvailable = typeof window.Telegram !== 'undefined';
+        const isWebAppAvailable = isTelegramAvailable && typeof window.Telegram.WebApp !== 'undefined';
+        
+        console.log('[Telegram WebApp] Проверка доступности API:', {
+          isTelegramAvailable,
+          isWebAppAvailable,
+          initData: isWebAppAvailable ? (window.Telegram.WebApp.initData?.length || 0) : 0
+        });
+
+        // Если доступен Telegram WebApp API, инициализируем по официальным рекомендациям
+        if (isWebAppAvailable) {
+          try {
+            // Сообщаем Telegram, что приложение готово
+            window.Telegram.WebApp.ready();
+            console.log('[Telegram WebApp] Вызван метод ready(), приложение сообщило о готовности');
+            
+            // Расширяем окно до максимальной высоты
+            window.Telegram.WebApp.expand();
+            console.log('[Telegram WebApp] Вызван метод expand(), окно расширено');
+            
+            // Логируем информацию о версии и платформе
+            if (window.Telegram.WebApp.version && window.Telegram.WebApp.platform) {
+              console.log(`[Telegram WebApp] Версия: ${window.Telegram.WebApp.version}, Платформа: ${window.Telegram.WebApp.platform}`);
+            }
+          } catch (e) {
+            console.error('[Telegram WebApp] Ошибка инициализации:', e);
+          }
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <!-- Невидимый элемент для TonConnect UI -->
+    <div id="ton-connect-button" style="display: none;"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <!-- This is a replit script which adds a banner on the top of the page when opened in development mode outside the replit environment -->
+    <script type="text/javascript" src="https://replit.com/public/js/replit-dev-banner.js"></script>
+  </body>
+</html>

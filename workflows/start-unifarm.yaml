@@ -1,0 +1,6 @@
+name: Start UniFarm
+on: manual
+steps:
+  - name: Launch UniFarm Server
+    run: npm run dev
+    background: true

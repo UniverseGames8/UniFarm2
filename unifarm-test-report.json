@@ -1,0 +1,284 @@
+{
+  "totalTests": 10,
+  "passedTests": 8,
+  "failedTests": 2,
+  "skippedTests": 0,
+  "details": [
+    {
+      "name": "Восстановление сессии",
+      "result": "PASSED",
+      "details": {
+        "ok": true,
+        "userId": 34,
+        "userData": {
+          "user_id": 34,
+          "username": "guest_b6e4ada3",
+          "telegram_id": null,
+          "balance_uni": "0.000000",
+          "balance_ton": "0.000000",
+          "ref_code": "QCPmA28F",
+          "guest_id": "b6e4ada3-adac-44cb-b57e-c80e1ce04ce2",
+          "created_at": "2025-05-09T09:01:34.786Z",
+          "parent_ref_code": null
+        }
+      }
+    },
+    {
+      "name": "WebSocket соединение",
+      "result": "PASSED",
+      "details": {
+        "ok": true,
+        "message": "WebSocket соединение работает корректно"
+      }
+    },
+    {
+      "name": "Получение баланса",
+      "result": "PASSED",
+      "details": {
+        "ok": true,
+        "balance": {
+          "uni_balance": "0.000000",
+          "ton_balance": "0.000000",
+          "total_earned_uni": "0",
+          "total_earned_ton": "0",
+          "total_withdrawn_uni": "0",
+          "total_withdrawn_ton": "0",
+          "is_fallback": false
+        },
+        "dbBalance": {
+          "balance_uni": "0.000000",
+          "balance_ton": "0.000000"
+        },
+        "balanceMatch": false
+      }
+    },
+    {
+      "name": "Форсированное обновление баланса",
+      "result": "PASSED",
+      "details": {
+        "ok": true,
+        "balance": {
+          "uni_balance": "0.000000",
+          "ton_balance": "0.000000",
+          "total_earned_uni": "0",
+          "total_earned_ton": "0",
+          "total_withdrawn_uni": "0",
+          "total_withdrawn_ton": "0",
+          "is_fallback": false
+        }
+      }
+    },
+    {
+      "name": "Система фарминга",
+      "result": "FAILED",
+      "details": {
+        "ok": false,
+        "error": "Неизвестная ошибка",
+        "endpoint": "/api/uni-farming/info",
+        "response": {
+          "status": 500,
+          "ok": false,
+          "data": {
+            "success": false,
+            "message": "Внутренняя ошибка сервера при получении информации о фарминге"
+          }
+        }
+      }
+    },
+    {
+      "name": "Система бустов",
+      "result": "PASSED",
+      "details": {
+        "ok": true,
+        "boosts": [
+          {
+            "id": 1,
+            "name": "Starter Package",
+            "priceUni": "100",
+            "priceTon": "1",
+            "bonusUni": "20",
+            "rateUni": "1.0",
+            "rateTon": "0.2"
+          },
+          {
+            "id": 2,
+            "name": "Basic Package",
+            "priceUni": "500",
+            "priceTon": "5",
+            "bonusUni": "125",
+            "rateUni": "1.2",
+            "rateTon": "0.3"
+          },
+          {
+            "id": 3,
+            "name": "Standard Package",
+            "priceUni": "1000",
+            "priceTon": "10",
+            "bonusUni": "300",
+            "rateUni": "1.5",
+            "rateTon": "0.5"
+          },
+          {
+            "id": 4,
+            "name": "Advanced Package",
+            "priceUni": "5000",
+            "priceTon": "50",
+            "bonusUni": "2000",
+            "rateUni": "2.0",
+            "rateTon": "0.7"
+          },
+          {
+            "id": 5,
+            "name": "Pro Package",
+            "priceUni": "10000",
+            "priceTon": "100",
+            "bonusUni": "5000",
+            "rateUni": "2.5",
+            "rateTon": "1.0"
+          }
+        ],
+        "boostTypes": {
+          "undefined": 5
+        }
+      }
+    },
+    {
+      "name": "Транзакции",
+      "result": "PASSED",
+      "details": {
+        "ok": true,
+        "transactions": {
+          "total": 0,
+          "transactions": []
+        },
+        "dbTransactions": []
+      }
+    },
+    {
+      "name": "Реферальная система",
+      "result": "FAILED",
+      "details": {
+        "ok": false,
+        "error": "Ошибка при обработке запроса реферальных данных",
+        "endpoint": "/api/referrals",
+        "response": {
+          "status": 500,
+          "ok": false,
+          "data": {
+            "success": false,
+            "error": {
+              "message": "Ошибка при обработке запроса реферальных данных"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Система миссий",
+      "result": "PASSED",
+      "details": {
+        "ok": true,
+        "missions": [
+          {
+            "id": 1,
+            "type": "daily",
+            "title": "Ежедневный бонус",
+            "description": "Получите ежедневный бонус UNI токенов для фарминга",
+            "reward_uni": "10.000000",
+            "is_active": true
+          },
+          {
+            "id": 2,
+            "type": "social",
+            "title": "Подписка на канал",
+            "description": "Подпишитесь на наш Telegram канал https://t.me/unifarm",
+            "reward_uni": "15.000000",
+            "is_active": true
+          },
+          {
+            "id": 3,
+            "type": "deposit",
+            "title": "Первый депозит",
+            "description": "Внесите свой первый депозит в фарминг",
+            "reward_uni": "20.000000",
+            "is_active": true
+          },
+          {
+            "id": 4,
+            "type": "invite",
+            "title": "Приглашение друга",
+            "description": "Пригласите друга по реферальной ссылке",
+            "reward_uni": "25.000000",
+            "is_active": true
+          }
+        ],
+        "withCompletion": [
+          {
+            "id": 1,
+            "type": "daily",
+            "title": "Ежедневный бонус",
+            "description": "Получите ежедневный бонус UNI токенов для фарминга",
+            "reward_uni": "10.000000",
+            "is_active": true,
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": 2,
+            "type": "social",
+            "title": "Подписка на канал",
+            "description": "Подпишитесь на наш Telegram канал https://t.me/unifarm",
+            "reward_uni": "15.000000",
+            "is_active": true,
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": 3,
+            "type": "deposit",
+            "title": "Первый депозит",
+            "description": "Внесите свой первый депозит в фарминг",
+            "reward_uni": "20.000000",
+            "is_active": true,
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": 4,
+            "type": "invite",
+            "title": "Приглашение друга",
+            "description": "Пригласите друга по реферальной ссылке",
+            "reward_uni": "25.000000",
+            "is_active": true,
+            "is_completed": false,
+            "completed_at": null
+          }
+        ],
+        "userMissions": null,
+        "singleMission": {
+          "is_completed": false
+        },
+        "endpoints": {
+          "active": "/api/missions/active?user_id=34",
+          "withCompletion": "/api/missions/with-completion?user_id=34",
+          "userMissions": null,
+          "singleMission": "/api/missions/check"
+        }
+      }
+    },
+    {
+      "name": "Программы лояльности и бонусы",
+      "result": "PASSED",
+      "details": {
+        "ok": true,
+        "dailyBonus": {
+          "canClaim": true,
+          "streak": 0,
+          "bonusAmount": 500
+        },
+        "loyaltyHistory": null,
+        "promotions": null
+      }
+    }
+  ]
+}

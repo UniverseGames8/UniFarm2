@@ -1,0 +1,2 @@
+entrypoint = "main.js"
+run = "node main.js"

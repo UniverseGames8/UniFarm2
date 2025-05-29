@@ -1,0 +1,13 @@
+[workflow]
+onBoot = true
+name = "Start application"
+entrypoint = "node run.js"
+runOnOpen = false
+restartOn = { fileChange = ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"] }
+clearEnv = false
+
+[env]
+SKIP_TELEGRAM_CHECK = "true"
+ALLOW_BROWSER_ACCESS = "true"
+NODE_ENV = "development"
+PORT = "3000"

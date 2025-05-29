@@ -1,0 +1,13 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "0000",
+      "when": "1747142847118",
+      "tag": "create_tables",
+      "breakpoints": false
+    }
+  ]
+}
